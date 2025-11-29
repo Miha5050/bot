@@ -164,18 +164,24 @@ async def send_morning_message(app: Application):
         print(f"📅 Запомнена дата утреннего уведомления: {today}")
 
 async def send_evening_message(app: Application):
-    """Отправляет вечернее сообщение"""
+    """Отправляет вечернее сообщение со стихотворением"""
     global last_evening_notification
     
     current_time = datetime.datetime.now(BotConfig.TIMEZONE)
     today = current_time.date()
     
     if daily == "включены" and users_for_daily and last_evening_notification != today:
-        message = "🌃 Добрый вечер! Как прошел ваш день? 🌙"
+        # Создаем вечернее сообщение со стихотворением
+        message = f"""🌃 Добрый вечер! 🌙
+
+{create_poem()}
+
+💫 Пусть этот вечер принесет умиротворение и приятные мысли!"""
+        
         for chat_id in users_for_daily:
             try:
                 await app.bot.send_message(chat_id=chat_id, text=message)
-                print(f"✅ Вечернее сообщение отправлено пользователю {chat_id}")
+                print(f"✅ Вечернее сообщение со стихотворением отправлено пользователю {chat_id}")
             except Exception as e:
                 print(f"❌ Ошибка отправки пользователю {chat_id}: {e}")
         
