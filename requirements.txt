@@ -1,0 +1,4 @@
+python-telebot
+flask
+pytz
+requests
