@@ -1,4 +1,4 @@
-python-telebot
+python-telegram-bot
 flask
 pytz
 requests
